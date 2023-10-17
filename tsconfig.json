@@ -1,0 +1,26 @@
+{
+    "compilerOptions": {
+        "allowUnreachableCode": false,
+        "declaration": true,
+        "forceConsistentCasingInFileNames": true,
+        "lib": ["es5", "es6"],
+        "module": "commonjs",
+        "noEmitOnError": true,
+        "noFallthroughCasesInSwitch": true,
+        "noImplicitReturns": true,
+        "rootDir": ".",
+        "outDir": "build",
+        "esModuleInterop": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "target": "es6",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "strictNullChecks": true,
+        "baseUrl": ".",
+        "paths": {
+            "@/*": ["src/*"]
+        }
+    },
+    "include": ["src/**/*.ts", "test/**/*.ts"]
+}
