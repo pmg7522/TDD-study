@@ -1,19 +1,24 @@
-import { Controller, Get, HttpException, UseFilters } from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    HttpException,
+    Param,
+    ParseIntPipe,
+    UseFilters,
+    UseInterceptors,
+} from '@nestjs/common';
 import { CatsService } from './cats.service';
-import { HttpExceptionFilter } from '@/errors/exception-filters/http-exception.filter';
+import { HttpExceptionFilter } from '@/common/exceptions/http-exception.filter';
+import { SuccessInterceptor } from '@/common/interceptors/logging.interceptor';
 
 @Controller('cats')
+@UseInterceptors(SuccessInterceptor)
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
-    @Get()
-    @UseFilters(HttpExceptionFilter)
-    getDetail(): object {
-        throw new HttpException(
-            { resultCode: 401000, message: 'unauthorized' },
-            401,
-        );
-
+    @Get(':id')
+    getDetail(@Param('id', ParseIntPipe) param): object {
+        console.log(param);
         return this.catsService.getDetail();
     }
 }
