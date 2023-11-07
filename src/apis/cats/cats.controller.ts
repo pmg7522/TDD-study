@@ -1,13 +1,32 @@
-import { Controller, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller, Get, Param, ParseIntPipe, Post } from '@nestjs/common';
 import { CatsService } from './cats.service';
 
 @Controller('cats')
 export class CatsController {
     constructor(private readonly catsService: CatsService) {}
 
-    @Get(':id')
-    getDetail(@Param('id', ParseIntPipe) param): object {
-        console.log(param);
-        return this.catsService.getDetail();
+    @Get()
+    getCurrentCat() {
+        return 'current cat';
+    }
+
+    @Post()
+    signUp() {
+        return 'signup';
+    }
+
+    @Post('login')
+    logIn() {
+        return 'login';
+    }
+
+    @Post('logout')
+    logOut() {
+        return 'logout';
+    }
+
+    @Post('upload/cats')
+    uploadCatImage() {
+        return 'upload Image';
     }
 }
