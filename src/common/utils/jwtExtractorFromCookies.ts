@@ -6,6 +6,7 @@ export const jwtExtractorFromCookies: JwtFromRequestFunction = (
 ): string | null => {
     try {
         const jwt = request.cookies["jwt"];
+
         return jwt;
     } catch (error) {
         return null;

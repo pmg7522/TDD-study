@@ -6,9 +6,11 @@ export const ClientIp = createParamDecorator(
     (data: unknown, ctx: ExecutionContext) => {
         const request: Request = ctx.switchToHttp().getRequest();
 
-        if (request.headers["cf-connecting-ip"])
+        if (request.headers["cf-connecting-ip"]) {
             //* cloudflare origin ip */
             return request.headers["cf-connecting-ip"];
-        else return requestIp.getClientIp(request);
+        }
+
+        return requestIp.getClientIp(request);
     },
 );

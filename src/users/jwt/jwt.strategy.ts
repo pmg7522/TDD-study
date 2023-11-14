@@ -24,11 +24,12 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     async validate(payload: JwtPayload) {
         try {
             const user = await this.usersService.findUserById(payload.sub);
+
             if (user) {
                 return user;
-            } else {
-                throw new Error("해당하는 유저는 없습니다.");
             }
+
+            throw new Error("해당하는 유저는 없습니다.");
         } catch (error) {
             throw new UnauthorizedException(error);
         }

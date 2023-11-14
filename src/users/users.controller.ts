@@ -26,6 +26,7 @@ export class UsersController {
 
     constructor(
         private readonly usersService: UsersService,
+
         @InjectRepository(UserEntity)
         private readonly usersRepository: Repository<UserEntity>,
     ) {}
@@ -51,7 +52,9 @@ export class UsersController {
             userLoginDTO.email,
             userLoginDTO.password,
         );
+
         response.cookie("jwt", jwt, { httpOnly: true });
+
         return user;
     }
 
