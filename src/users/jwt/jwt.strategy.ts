@@ -8,14 +8,9 @@ import { ConfigService } from "@nestjs/config";
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
-    constructor(
-        private readonly usersService: UsersService,
-        private readonly configService: ConfigService,
-    ) {
+    constructor(private readonly usersService: UsersService, private readonly configService: ConfigService) {
         super({
-            jwtFromRequest: ExtractJwt.fromExtractors([
-                jwtExtractorFromCookies,
-            ]),
+            jwtFromRequest: ExtractJwt.fromExtractors([jwtExtractorFromCookies]),
             secretOrKey: configService.get("SECRET_KEY"),
             ignoreExpiration: false,
         });
@@ -24,12 +19,11 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     async validate(payload: JwtPayload) {
         try {
             const user = await this.usersService.findUserById(payload.sub);
-
             if (user) {
                 return user;
+            } else {
+                throw new Error("해당하는 유저는 없습니다.");
             }
-
-            throw new Error("해당하는 유저는 없습니다.");
         } catch (error) {
             throw new UnauthorizedException(error);
         }
