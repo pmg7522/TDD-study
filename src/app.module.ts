@@ -11,6 +11,7 @@ import { ConfigModule } from "@nestjs/config";
 
 @Module({
     imports: [
+        ConfigModule.forRoot({ isGlobal: true }),
         UserModule,
         ReviewModule,
         ProductModule,
@@ -19,7 +20,6 @@ import { ConfigModule } from "@nestjs/config";
         OrderDetailModule,
         CartModule,
         AuthModule,
-        ConfigModule.forRoot({ isGlobal: true }),
     ],
 })
 export class AppModule {}
